@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo:latest
+    container_name: KoushalMongoDb
+    ports:
+      - "27017:27017"
+
+  app:
+    build: .
+    image: dockerdemo:latest
+    container_name: myapp
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongo
+      SPRING_DATA_MONGODB_PORT: 27017
